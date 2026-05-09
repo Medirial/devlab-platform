@@ -1,9 +1,21 @@
 const Quiz = require('../models/Quiz');
+const config = require('../config/env');
+const mockQuizzes = require('../data/mockQuizzes');
+
+// Si USE_MOCK_DATA=true, on utilise les données simulées en mémoire
+let quizzesData = config.useMockData ? [...mockQuizzes] : null;
 
 // GET tous les quizzes
 const getQuizzes = async (req, res) => {
   try {
-    const quizzes = await Quiz.find();
+    let quizzes;
+
+    if (config.useMockData) {
+      quizzes = quizzesData;
+    } else {
+      quizzes = await Quiz.find();
+    }
+
     res.status(200).json({
       success: true,
       count: quizzes.length,
@@ -20,7 +32,14 @@ const getQuizzes = async (req, res) => {
 // GET un quiz par ID
 const getQuizById = async (req, res) => {
   try {
-    const quiz = await Quiz.findById(req.params.id);
+    let quiz;
+
+    if (config.useMockData) {
+      quiz = quizzesData.find(q => q._id === req.params.id);
+    } else {
+      quiz = await Quiz.findById(req.params.id);
+    }
+
     if (!quiz) {
       return res.status(404).json({
         success: false,
@@ -44,20 +63,41 @@ const createQuiz = async (req, res) => {
   try {
     const { title, description, category, difficulty, questions } = req.body;
 
-    const quiz = new Quiz({
-      title,
-      description,
-      category,
-      difficulty,
-      questions,
-    });
+    if (config.useMockData) {
+      // Créer un ID unique pour le mock data
+      const newId = Date.now().toString();
+      const newQuiz = {
+        _id: newId,
+        title,
+        description,
+        category,
+        difficulty,
+        questions,
+        createdAt: new Date().toISOString(),
+        updatedAt: new Date().toISOString(),
+      };
+      quizzesData.push(newQuiz);
 
-    await quiz.save();
+      res.status(201).json({
+        success: true,
+        data: newQuiz,
+      });
+    } else {
+      const quiz = new Quiz({
+        title,
+        description,
+        category,
+        difficulty,
+        questions,
+      });
 
-    res.status(201).json({
-      success: true,
-      data: quiz,
-    });
+      await quiz.save();
+
+      res.status(201).json({
+        success: true,
+        data: quiz,
+      });
+    }
   } catch (error) {
     res.status(400).json({
       success: false,
