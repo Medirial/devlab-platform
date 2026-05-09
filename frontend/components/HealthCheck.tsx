@@ -35,11 +35,11 @@ export default function HealthCheck() {
   return (
     <div style={{ padding: '20px', border: '1px solid #ddd', borderRadius: '8px', marginBottom: '20px' }}>
       <h3>État API Backend</h3>
-      {loading && <p>🔄 Vérification en cours...</p>}
-      {error && <p style={{ color: 'red' }}>❌ {error}</p>}
+      {loading && <p>Vérification en cours...</p>}
+      {error && <p style={{ color: 'red' }}>{error}</p>}
       {health && (
         <div style={{ color: 'green' }}>
-          <p>✅ API connectée</p>
+          <p>API connectée</p>
           <p><strong>Status :</strong> {health.status}</p>
           <p><strong>Message :</strong> {health.message}</p>
         </div>

@@ -14,14 +14,14 @@ export default function Home() {
         <HealthCheck />
 
         <section style={{ marginTop: '40px' }}>
-          <h2>Bienvenue 👋</h2>
+          <h2>Bienvenue</h2>
           <p>La plateforme est en cours de construction.</p>
           <p>Fonctionnalités à venir :</p>
           <ul>
-            <li>📝 Quiz techniques (JavaScript, React, Cloud, Docker, AWS)</li>
-            <li>🗺️ Roadmaps de développement</li>
-            <li>📊 Suivi de progression</li>
-            <li>🏆 Système de badges</li>
+            <li>Quiz techniques (JavaScript, React, Cloud, Docker, AWS)</li>
+            <li>Roadmaps de développement</li>
+            <li>Suivi de progression</li>
+            <li>Système de badges</li>
           </ul>
         </section>
       </main>
