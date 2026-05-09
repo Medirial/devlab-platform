@@ -6,6 +6,8 @@
   "scripts": {
     "dev": "nodemon index.js",
     "start": "node index.js",
+    "seed:quizzes": "node scripts/seedQuizzes.js",
+    "seed:quizzes:reset": "node scripts/seedQuizzes.js --reset",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [],
