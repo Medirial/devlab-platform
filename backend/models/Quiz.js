@@ -13,7 +13,7 @@ const quizSchema = new mongoose.Schema(
     },
     category: {
       type: String,
-      enum: ['JavaScript', 'React', 'Node.js', 'Docker', 'AWS', 'Cloud', 'Autre'],
+      enum: ['JavaScript', 'React', 'Node.js', 'Docker', 'AWS', 'Azure', 'Linux', 'Cloud', 'Autre'],
       default: 'Autre',
     },
     questions: [

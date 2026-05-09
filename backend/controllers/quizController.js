@@ -2,18 +2,22 @@ const Quiz = require('../models/Quiz');
 const config = require('../config/env');
 const mockQuizzes = require('../data/mockQuizzes');
 
-// Si USE_MOCK_DATA=true, on utilise les données simulées en mémoire
-let quizzesData = config.useMockData ? [...mockQuizzes] : null;
+// Si USE_MOCK_DATA=true ou si Mongo n'est pas configure, on utilise les donnees mock
+const shouldUseMockData = config.useMockData || !config.mongodbUri;
+let quizzesData = shouldUseMockData ? [...mockQuizzes] : null;
 
 // GET tous les quizzes
 const getQuizzes = async (req, res) => {
   try {
     let quizzes;
 
-    if (config.useMockData) {
+    if (shouldUseMockData) {
       quizzes = quizzesData;
     } else {
       quizzes = await Quiz.find();
+      if (!quizzes || quizzes.length === 0) {
+        quizzes = mockQuizzes;
+      }
     }
 
     res.status(200).json({
@@ -34,10 +38,13 @@ const getQuizById = async (req, res) => {
   try {
     let quiz;
 
-    if (config.useMockData) {
+    if (shouldUseMockData) {
       quiz = quizzesData.find(q => q._id === req.params.id);
     } else {
       quiz = await Quiz.findById(req.params.id);
+      if (!quiz) {
+        quiz = mockQuizzes.find(q => q._id === req.params.id);
+      }
     }
 
     if (!quiz) {
@@ -63,7 +70,7 @@ const createQuiz = async (req, res) => {
   try {
     const { title, description, category, difficulty, questions } = req.body;
 
-    if (config.useMockData) {
+    if (shouldUseMockData) {
       // Créer un ID unique pour le mock data
       const newId = Date.now().toString();
       const newQuiz = {
