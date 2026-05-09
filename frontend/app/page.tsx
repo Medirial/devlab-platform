@@ -1,65 +1,29 @@
-import Image from "next/image";
-import styles from "./page.module.css";
+import HealthCheck from '@/components/HealthCheck';
 
 export default function Home() {
   return (
-    <div className={styles.page}>
-      <main className={styles.main}>
-        <Image
-          className={styles.logo}
-          src="/next.svg"
-          alt="Next.js logo"
-          width={100}
-          height={20}
-          priority
-        />
-        <div className={styles.intro}>
-          <h1>To get started, edit the page.tsx file.</h1>
-          <p>
-            Looking for a starting point or more instructions? Head over to{" "}
-            <a
-              href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Templates
-            </a>{" "}
-            or the{" "}
-            <a
-              href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-              target="_blank"
-              rel="noopener noreferrer"
-            >
-              Learning
-            </a>{" "}
-            center.
-          </p>
-        </div>
-        <div className={styles.ctas}>
-          <a
-            className={styles.primary}
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className={styles.logo}
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={16}
-              height={16}
-            />
-            Deploy Now
-          </a>
-          <a
-            className={styles.secondary}
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Documentation
-          </a>
-        </div>
+    <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '40px 20px' }}>
+      <header style={{ marginBottom: '40px' }}>
+        <h1 style={{ fontSize: '2.5em', marginBottom: '10px' }}>DevLab Platform</h1>
+        <p style={{ fontSize: '1.1em', color: '#666' }}>
+          Apprenez le cloud, le fullstack et les technologies modernes
+        </p>
+      </header>
+
+      <main>
+        <HealthCheck />
+
+        <section style={{ marginTop: '40px' }}>
+          <h2>Bienvenue 👋</h2>
+          <p>La plateforme est en cours de construction.</p>
+          <p>Fonctionnalités à venir :</p>
+          <ul>
+            <li>📝 Quiz techniques (JavaScript, React, Cloud, Docker, AWS)</li>
+            <li>🗺️ Roadmaps de développement</li>
+            <li>📊 Suivi de progression</li>
+            <li>🏆 Système de badges</li>
+          </ul>
+        </section>
       </main>
     </div>
   );
