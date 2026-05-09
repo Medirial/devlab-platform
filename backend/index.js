@@ -1,13 +1,18 @@
 const express = require('express');
-const app = express();
-const PORT = process.env.PORT || 3001;
+const config = require('./config/env');
 
+const app = express();
+
+// Middleware
 app.use(express.json());
 
+// Routes
 app.get('/', (req, res) => {
   res.send('API backend opérationnelle !');
 });
 
-app.listen(PORT, () => {
-  console.log(`Serveur backend démarré sur http://localhost:${PORT}`);
+// Démarrage du serveur
+app.listen(config.port, () => {
+  console.log(`✅ Serveur backend démarré sur http://localhost:${config.port}`);
+  console.log(`📍 Environnement : ${config.nodeEnv}`);
 });
