@@ -72,11 +72,35 @@ export default function QuizList({ difficultyFilter = 'Tous' }: Readonly<QuizLis
   if (loading) {
     return (
       <div style={{
-        padding: `${theme.spacing.lg} ${theme.spacing.md}`,
-        textAlign: 'center',
+        padding: `${theme.spacing.md} 0`,
         color: theme.colors.textSecondary,
       }}>
-        <p>Chargement des quizzes...</p>
+        <p style={{ marginBottom: theme.spacing.md, fontSize: theme.typography.small }}>
+          Chargement des quizzes...
+        </p>
+        <div style={{ display: 'grid', gap: theme.spacing.md }}>
+          {[1, 2, 3].map((item) => (
+            <article
+              key={item}
+              className='quiz-skeleton-card'
+              style={{
+                borderRadius: theme.borderRadius.lg,
+                padding: theme.spacing.lg,
+                backgroundColor: theme.colors.surface,
+                boxShadow: `0 10px 22px ${theme.colors.shadow}`,
+              }}
+            >
+              <div className='quiz-skeleton-line quiz-skeleton-line-title' />
+              <div className='quiz-skeleton-line quiz-skeleton-line-body' />
+              <div className='quiz-skeleton-line quiz-skeleton-line-body short' />
+              <div className='quiz-skeleton-row'>
+                <div className='quiz-skeleton-chip' />
+                <div className='quiz-skeleton-chip' />
+                <div className='quiz-skeleton-button' />
+              </div>
+            </article>
+          ))}
+        </div>
       </div>
     );
   }

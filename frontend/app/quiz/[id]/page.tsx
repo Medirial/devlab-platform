@@ -69,6 +69,13 @@ export default function QuizPage() {
         minHeight: '100vh',
       }}>
         <ThemeToggle />
+        <div
+          className='quiz-loader-spinner'
+          style={{
+            borderColor: theme.mode === 'light' ? 'rgba(14, 165, 233, 0.2)' : 'rgba(148, 163, 184, 0.28)',
+            borderTopColor: theme.mode === 'light' ? '#0ea5e9' : '#14b8a6',
+          }}
+        />
         <p>Chargement du quiz...</p>
       </div>
     );
