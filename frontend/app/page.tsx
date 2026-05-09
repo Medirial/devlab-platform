@@ -1,4 +1,5 @@
 import HealthCheck from '@/components/HealthCheck';
+import QuizList from '@/components/QuizList';
 
 export default function Home() {
   return (
@@ -14,7 +15,12 @@ export default function Home() {
         <HealthCheck />
 
         <section style={{ marginTop: '40px' }}>
-          <h2>Bienvenue</h2>
+          <h2>Quizzes Disponibles</h2>
+          <QuizList />
+        </section>
+
+        <section style={{ marginTop: '40px' }}>
+          <h2>A Propos</h2>
           <p>La plateforme est en cours de construction.</p>
           <p>Fonctionnalités à venir :</p>
           <ul>
