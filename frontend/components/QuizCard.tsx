@@ -29,6 +29,8 @@ const categoryColors: Record<string, string> = {
   'Node.js': '#68A063',
   Docker: '#2496ED',
   AWS: '#FF9900',
+  Azure: '#0078D4',
+  Linux: '#FCC624',
   Cloud: '#4285F4',
   Autre: '#9C27B0',
 };

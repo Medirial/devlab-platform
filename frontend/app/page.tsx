@@ -17,23 +17,23 @@ export default function Home() {
 
   const featureCards = [
     {
-      title: 'Quiz Techniques',
-      description: 'JavaScript, React, Cloud, Docker et AWS avec progression immédiate.',
+      title: 'Quiz Cloud Complets',
+      description: 'Series riches sur AWS, Azure, Linux et Docker avec questions de niveau reel.',
       Icon: BrainCircuit,
     },
     {
       title: 'Roadmaps Pratiques',
-      description: 'Plans d’apprentissage orientés alternance et projet portfolio.',
+      description: 'Parcours progressifs cloud/devops du niveau debutant au niveau king.',
       Icon: Layers3,
     },
     {
       title: 'Suivi de Score',
-      description: 'Historique des résultats, objectifs hebdomadaires et analyse de niveau.',
+      description: 'Historique des resultats, analyse des points faibles et progression continue.',
       Icon: ChartColumnIncreasing,
     },
     {
       title: 'Track Cloud',
-      description: 'Parcours progressif vers les compétences infra et déploiement AWS.',
+      description: 'Vision operationnelle orientee architecture, securite, deployment et troubleshooting.',
       Icon: CloudCog,
     },
   ];
@@ -45,7 +45,10 @@ export default function Home() {
   return (
     <div style={{
       backgroundColor: theme.colors.background,
-      backgroundImage: theme.effects.backgroundGradient,
+      backgroundImage:
+        theme.mode === 'light'
+          ? 'radial-gradient(circle at 15% 15%, #ecfeff 0%, transparent 35%), radial-gradient(circle at 90% 10%, #dcfce7 0%, transparent 40%), linear-gradient(160deg, #f8fafc 0%, #ecfeff 55%, #eff6ff 100%)'
+          : theme.effects.backgroundGradient,
       color: theme.colors.text,
       minHeight: '100vh',
       transition: 'background-color 0.35s ease, color 0.35s ease',
@@ -57,26 +60,27 @@ export default function Home() {
             display: 'inline-flex',
             alignItems: 'center',
             gap: '8px',
-            padding: '6px 12px',
+            padding: '8px 14px',
             borderRadius: '999px',
-            border: `1px solid ${theme.colors.border}`,
-            backgroundColor: theme.colors.surface,
+            backgroundColor: theme.effects.floatingSurface,
+            backdropFilter: 'blur(10px)',
             color: theme.colors.textSecondary,
             fontSize: theme.typography.small,
             marginBottom: theme.spacing.md,
+            boxShadow: `0 10px 24px ${theme.colors.shadow}`,
           }}>
-            Plateforme Fullstack & Cloud
+            Cloud Learning Platform
           </span>
           <h1 style={{
             fontSize: theme.typography.h1,
             marginBottom: theme.spacing.sm,
-            backgroundImage: `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.secondary})`,
+            backgroundImage: 'linear-gradient(135deg, #0f766e, #0ea5e9, #e2f5ff)',
             backgroundClip: 'text',
             WebkitBackgroundClip: 'text',
             WebkitTextFillColor: 'transparent',
             fontWeight: 'bold',
           }}>
-            DevLab Platform
+            CloudLab Platform
           </h1>
           <p style={{
             fontSize: theme.typography.body,
@@ -84,7 +88,7 @@ export default function Home() {
             maxWidth: '760px',
             lineHeight: '1.6',
           }}>
-            Apprenez le cloud, le fullstack et les technologies modernes avec une interface claire, rapide et orientee pratique.
+            Formez-vous sur le cloud et le devops avec une interface moderne, des quizzes riches et des roadmaps actionnables.
           </p>
         </header>
 
@@ -164,10 +168,10 @@ export default function Home() {
               A propos
             </h2>
             <div style={{
-              backgroundColor: theme.colors.surface,
+              backgroundColor: theme.effects.floatingSurface,
               padding: theme.spacing.lg,
               borderRadius: theme.borderRadius.lg,
-              border: `1px solid ${theme.colors.border}`,
+              backdropFilter: 'blur(10px)',
               boxShadow: `0 12px 30px ${theme.colors.shadow}`,
             }}>
               <p style={{

@@ -40,7 +40,11 @@ export default function QuizList({ difficultyFilter = 'Tous' }: Readonly<QuizLis
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
 
-  const filteredQuizzes = quizzes.filter((quiz) => {
+  const cloudCategories = new Set(['AWS', 'Azure', 'Linux', 'Docker', 'Cloud']);
+
+  const cloudQuizzes = quizzes.filter((quiz) => cloudCategories.has(quiz.category));
+
+  const filteredQuizzes = cloudQuizzes.filter((quiz) => {
     if (difficultyFilter === 'Tous') {
       return true;
     }
@@ -104,8 +108,8 @@ export default function QuizList({ difficultyFilter = 'Tous' }: Readonly<QuizLis
       }}>
         <p>
           {difficultyFilter === 'Tous'
-            ? 'Aucun quiz disponible pour le moment.'
-            : `Aucun quiz de niveau ${difficultyFilter} pour le moment.`}
+            ? 'Aucun quiz cloud disponible pour le moment.'
+            : `Aucun quiz cloud de niveau ${difficultyFilter} pour le moment.`}
         </p>
       </div>
     );
