@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import { useTheme } from './ThemeProvider';
 import QuizCard from './QuizCard';
 import { apiGet } from '@/lib/api';
 
@@ -27,10 +28,24 @@ interface ApiResponse {
   error?: string;
 }
 
-export default function QuizList() {
+type DifficultyFilter = 'Tous' | 'Facile' | 'Moyen' | 'Difficile';
+
+interface QuizListProps {
+  difficultyFilter?: DifficultyFilter;
+}
+
+export default function QuizList({ difficultyFilter = 'Tous' }: Readonly<QuizListProps>) {
+  const { theme } = useTheme();
   const [quizzes, setQuizzes] = useState<Quiz[]>([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<string | null>(null);
+
+  const filteredQuizzes = quizzes.filter((quiz) => {
+    if (difficultyFilter === 'Tous') {
+      return true;
+    }
+    return quiz.difficulty === difficultyFilter;
+  });
 
   useEffect(() => {
     const fetchQuizzes = async () => {
@@ -52,7 +67,11 @@ export default function QuizList() {
 
   if (loading) {
     return (
-      <div style={{ padding: '40px 20px', textAlign: 'center' }}>
+      <div style={{
+        padding: `${theme.spacing.lg} ${theme.spacing.md}`,
+        textAlign: 'center',
+        color: theme.colors.textSecondary,
+      }}>
         <p>Chargement des quizzes...</p>
       </div>
     );
@@ -60,26 +79,48 @@ export default function QuizList() {
 
   if (error) {
     return (
-      <div style={{ padding: '40px 20px', textAlign: 'center' }}>
-        <p style={{ color: '#f44336' }}>Erreur : {error}</p>
+      <div style={{
+        padding: `${theme.spacing.lg} ${theme.spacing.md}`,
+        textAlign: 'center',
+        color: theme.colors.danger,
+        backgroundColor: `${theme.colors.danger}20`,
+        borderRadius: theme.borderRadius.md,
+        border: `1px solid ${theme.colors.danger}`,
+      }}>
+        <p>Erreur : {error}</p>
       </div>
     );
   }
 
-  if (quizzes.length === 0) {
+  if (filteredQuizzes.length === 0) {
     return (
-      <div style={{ padding: '40px 20px', textAlign: 'center' }}>
-        <p style={{ color: '#999' }}>Aucun quiz disponible pour le moment.</p>
+      <div style={{
+        padding: `${theme.spacing.lg} ${theme.spacing.md}`,
+        textAlign: 'center',
+        color: theme.colors.textSecondary,
+        backgroundColor: theme.colors.surface,
+        borderRadius: theme.borderRadius.md,
+        border: `1px solid ${theme.colors.border}`,
+      }}>
+        <p>
+          {difficultyFilter === 'Tous'
+            ? 'Aucun quiz disponible pour le moment.'
+            : `Aucun quiz de niveau ${difficultyFilter} pour le moment.`}
+        </p>
       </div>
     );
   }
 
   return (
     <div>
-      <h2 style={{ marginBottom: '20px', color: '#333' }}>
-        {quizzes.length} Quiz{quizzes.length > 1 ? 'zes' : ''}
-      </h2>
-      {quizzes.map((quiz) => (
+      <p style={{
+        marginBottom: theme.spacing.md,
+        color: theme.colors.textSecondary,
+        fontSize: theme.typography.small,
+      }}>
+        {filteredQuizzes.length} Quiz{filteredQuizzes.length > 1 ? 'zes' : ''}
+      </p>
+      {filteredQuizzes.map((quiz) => (
         <QuizCard key={quiz._id} quiz={quiz} />
       ))}
     </div>

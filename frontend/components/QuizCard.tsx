@@ -1,3 +1,8 @@
+'use client';
+
+import Link from 'next/link';
+import { useTheme } from './ThemeProvider';
+
 interface Quiz {
   _id: string;
   title: string;
@@ -18,100 +23,131 @@ interface QuizCardProps {
   quiz: Quiz;
 }
 
-export default function QuizCard({ quiz }: QuizCardProps) {
+const categoryColors: Record<string, string> = {
+  JavaScript: '#F7DF1E',
+  React: '#61DAFB',
+  'Node.js': '#68A063',
+  Docker: '#2496ED',
+  AWS: '#FF9900',
+  Cloud: '#4285F4',
+  Autre: '#9C27B0',
+};
+
+export default function QuizCard({ quiz }: Readonly<QuizCardProps>) {
+  const { theme } = useTheme();
+
   const getDifficultyColor = (difficulty: string) => {
     switch (difficulty) {
       case 'Facile':
-        return '#4CAF50';
+        return theme.colors.success;
       case 'Moyen':
-        return '#FFC107';
+        return theme.colors.warning;
       case 'Difficile':
-        return '#F44336';
+        return theme.colors.danger;
       default:
-        return '#2196F3';
+        return theme.colors.primary;
     }
   };
 
   const getCategoryBgColor = (category: string) => {
-    const colors: Record<string, string> = {
-      JavaScript: '#F7DF1E',
-      React: '#61DAFB',
-      'Node.js': '#68A063',
-      Docker: '#2496ED',
-      AWS: '#FF9900',
-      Cloud: '#4285F4',
-      Autre: '#9C27B0',
-    };
-    return colors[category] || '#999';
+    return categoryColors[category] || theme.colors.primary;
   };
 
   return (
-    <div style={{
-      border: '1px solid #e0e0e0',
-      borderRadius: '8px',
-      padding: '20px',
-      marginBottom: '15px',
-      backgroundColor: '#fff',
-      boxShadow: '0 2px 4px rgba(0,0,0,0.1)',
-      transition: 'transform 0.2s, box-shadow 0.2s',
-      cursor: 'pointer',
-    }}
-    onMouseEnter={(e) => {
-      (e.currentTarget as HTMLElement).style.transform = 'translateY(-2px)';
-      (e.currentTarget as HTMLElement).style.boxShadow = '0 4px 8px rgba(0,0,0,0.15)';
-    }}
-    onMouseLeave={(e) => {
-      (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
-      (e.currentTarget as HTMLElement).style.boxShadow = '0 2px 4px rgba(0,0,0,0.1)';
+    <article className='quiz-card-modern' style={{
+      position: 'relative',
+      overflow: 'hidden',
+      borderRadius: theme.borderRadius.lg,
+      padding: theme.spacing.lg,
+      marginBottom: theme.spacing.md,
+      backgroundColor: theme.colors.surface,
+      backgroundImage: `linear-gradient(180deg, ${theme.colors.surface} 0%, ${theme.colors.background} 100%)`,
+      boxShadow: `0 10px 22px ${theme.colors.shadow}`,
     }}
     >
-      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'start', marginBottom: '10px' }}>
-        <h3 style={{ margin: '0 0 5px 0', color: '#333' }}>{quiz.title}</h3>
+      <div style={{
+        display: 'flex',
+        justifyContent: 'space-between',
+        alignItems: 'start',
+        marginBottom: theme.spacing.md,
+      }}>
+        <h3 style={{
+          margin: '0 0 5px 0',
+          color: theme.colors.text,
+          fontSize: theme.typography.h3,
+        }}>
+          {quiz.title}
+        </h3>
         <span style={{
           backgroundColor: getCategoryBgColor(quiz.category),
-          color: '#fff',
-          padding: '4px 10px',
-          borderRadius: '20px',
-          fontSize: '12px',
-          fontWeight: 'bold',
+          color: '#0b1220',
+          padding: `${theme.spacing.xs} ${theme.spacing.md}`,
+          borderRadius: '999px',
+          fontSize: theme.typography.small,
+          fontWeight: '700',
           whiteSpace: 'nowrap',
         }}>
           {quiz.category}
         </span>
       </div>
 
-      <p style={{ margin: '0 0 15px 0', color: '#666', fontSize: '14px' }}>
+      <p style={{
+        margin: `0 0 ${theme.spacing.lg} 0`,
+        color: theme.colors.textSecondary,
+        fontSize: theme.typography.body,
+        lineHeight: '1.5',
+      }}>
         {quiz.description}
       </p>
 
-      <div style={{ display: 'flex', gap: '15px', alignItems: 'center' }}>
+      <div style={{
+        display: 'flex',
+        gap: theme.spacing.md,
+        alignItems: 'center',
+      }}>
         <span style={{
           backgroundColor: getDifficultyColor(quiz.difficulty),
-          color: '#fff',
-          padding: '5px 12px',
-          borderRadius: '4px',
-          fontSize: '13px',
+          color: theme.colors.background,
+          padding: `${theme.spacing.xs} ${theme.spacing.md}`,
+          borderRadius: theme.borderRadius.sm,
+          fontSize: theme.typography.small,
           fontWeight: '500',
         }}>
           {quiz.difficulty}
         </span>
-        <span style={{ color: '#999', fontSize: '13px' }}>
+        <span style={{
+          color: theme.colors.textSecondary,
+          fontSize: theme.typography.small,
+        }}>
           {quiz.questions.length} questions
         </span>
-        <button style={{
+        <Link href={`/quiz/${quiz._id}`} style={{
           marginLeft: 'auto',
-          padding: '8px 16px',
-          backgroundColor: '#2196F3',
-          color: '#fff',
+          padding: `${theme.spacing.sm} ${theme.spacing.md}`,
+          backgroundImage: `linear-gradient(135deg, ${theme.colors.primary}, ${theme.colors.secondary})`,
+          color: '#ffffff',
           border: 'none',
-          borderRadius: '4px',
+          borderRadius: '999px',
           cursor: 'pointer',
-          fontSize: '14px',
-          fontWeight: '500',
-        }}>
+          fontSize: theme.typography.small,
+          fontWeight: '700',
+          textDecoration: 'none',
+          display: 'inline-block',
+          transition: 'transform 0.25s ease, box-shadow 0.25s ease',
+          boxShadow: `0 10px 20px ${theme.colors.shadow}`,
+        }}
+        onMouseEnter={(e) => {
+          (e.currentTarget as HTMLElement).style.transform = 'translateY(-1px)';
+          (e.currentTarget as HTMLElement).style.boxShadow = `0 14px 24px ${theme.colors.shadow}`;
+        }}
+        onMouseLeave={(e) => {
+          (e.currentTarget as HTMLElement).style.transform = 'translateY(0)';
+          (e.currentTarget as HTMLElement).style.boxShadow = `0 10px 20px ${theme.colors.shadow}`;
+        }}
+        >
           Commencer
-        </button>
+        </Link>
       </div>
-    </div>
+    </article>
   );
 }
