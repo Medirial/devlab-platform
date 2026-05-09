@@ -476,26 +476,9 @@ export default function RoadmapPage() {
         }}
       >
         <header style={{ marginBottom: theme.spacing.lg }}>
-          <div
-            style={{
-              display: 'inline-flex',
-              alignItems: 'center',
-              gap: '8px',
-              borderRadius: '999px',
-              backgroundColor: theme.effects.floatingSurface,
-              backdropFilter: 'blur(10px)',
-              padding: '8px 14px',
-              boxShadow: `0 10px 24px ${theme.colors.shadow}`,
-            }}
-          >
-            <Rocket size={16} color={theme.mode === 'light' ? '#0f766e' : theme.colors.primary} />
-            <span style={{ fontSize: theme.typography.small, color: theme.colors.textSecondary }}>
-              Cloud & DevOps Track
-            </span>
-          </div>
           <h1
             style={{
-              margin: `${theme.spacing.md} 0 ${theme.spacing.sm}`,
+              margin: `0 0 ${theme.spacing.sm}`,
               fontSize: theme.typography.h1,
               backgroundImage: 'linear-gradient(135deg, #0f766e, #0ea5e9, #e2f5ff)',
               backgroundClip: 'text',

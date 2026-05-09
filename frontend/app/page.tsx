@@ -56,21 +56,6 @@ export default function Home() {
       <ThemeToggle />
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: `${theme.spacing.lg} ${theme.spacing.md} 90px` }}>
         <header style={{ marginBottom: theme.spacing.lg }}>
-          <span style={{
-            display: 'inline-flex',
-            alignItems: 'center',
-            gap: '8px',
-            padding: '8px 14px',
-            borderRadius: '999px',
-            backgroundColor: theme.effects.floatingSurface,
-            backdropFilter: 'blur(10px)',
-            color: theme.colors.textSecondary,
-            fontSize: theme.typography.small,
-            marginBottom: theme.spacing.md,
-            boxShadow: `0 10px 24px ${theme.colors.shadow}`,
-          }}>
-            Cloud Learning Platform
-          </span>
           <h1 style={{
             fontSize: theme.typography.h1,
             marginBottom: theme.spacing.sm,
